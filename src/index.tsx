@@ -1,3 +1,5 @@
+import './index.css';
+
 import { RecoilRoot } from 'recoil';
 import ReactDOM from 'react-dom/client';
 
