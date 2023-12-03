@@ -15,6 +15,8 @@ npm run start
 
 ## Testing Server
 
+- https://github.com/choewy/socket-testing-client/tree/server
+
 ```bash
 git clone -b server https://github.com/choewy/socket-testing-client.git socket-testing-server
 
