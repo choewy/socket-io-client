@@ -12,9 +12,19 @@ npm start
 
 ### Pub
 
-- `welcome`
+```ts
+/** @description client side */
+
+socket.on('welcome', () => {
+  console.log('welcome');
+});
+```
 
 ### Sub
 
-- `hi`
-- `hello`
+```ts
+/** @description client side */
+
+socket.emit('hi');
+socket.emit('hello');
+```
