@@ -6,12 +6,12 @@ import { cacheHook } from '@/hook';
 import { CacheStoreValue } from '@/store';
 import { DateTime } from 'luxon';
 
-export type SettingListItemProps = {
+export type CacheListItemProps = {
   settingId: string;
   cache: CacheStoreValue;
 };
 
-export const ConnectionCacheAccordion: FunctionComponent<SettingListItemProps> = ({ settingId, cache }) => {
+export const CacheListItem: FunctionComponent<CacheListItemProps> = ({ settingId, cache }) => {
   const { id, ...setting } = cache.setting;
 
   const isCurrent = settingId === id;
