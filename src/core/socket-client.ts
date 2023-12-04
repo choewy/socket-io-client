@@ -1,9 +1,10 @@
 import { v4 } from 'uuid';
 import { Manager, Socket } from 'socket.io-client';
 
-import { ConnectionAuthValue } from '@/store';
+import { AlertVariant, ConnectionAuthValue } from '@/store';
 
 import { SocketClientDispatch, SocketConnectionOptions } from './types';
+import { AlertEvent } from '@/hook';
 
 export class SocketClient extends Socket {
   constructor(private dispatch: SocketClientDispatch, options: SocketConnectionOptions) {
@@ -23,6 +24,19 @@ export class SocketClient extends Socket {
   private pushSubLog(event: string, ...args: any[]) {
     const response = args.length < 2 ? args.shift() ?? null : args;
 
+    let variant: AlertVariant = 'info';
+
+    if (['disconnect', 'exception'].includes(event)) {
+      variant = 'warning';
+    } else if (['connect_error', 'error'].includes(event)) {
+      variant = 'error';
+    }
+
+    AlertEvent.dispatch({
+      variant,
+      message: response == null ? `[Sub] ${event}` : `[Sub] ${event} - ${JSON.stringify(response, null, 2)}`,
+    });
+
     this.dispatch.setLogs((prev) => ({
       ...prev,
       sub: [...prev.sub, { key: v4(), event, response, date: new Date() }],
@@ -31,6 +45,11 @@ export class SocketClient extends Socket {
 
   private pushPubLog(event: string, ...args: any[]) {
     const payload = args.length < 2 ? args.shift() ?? null : args;
+
+    AlertEvent.dispatch({
+      variant: 'success',
+      message: payload == null ? `[Pub] ${event}` : `[Pub] ${event} - ${JSON.stringify(payload, null, 2)}`,
+    });
 
     this.dispatch.setLogs((prev) => ({
       ...prev,

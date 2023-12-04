@@ -5,6 +5,7 @@ import { Box, Tabs, Tab } from '@mui/material';
 import { tabProperties } from './tab';
 import { connectionStore } from './store';
 import { localStorageService } from './core';
+import { Alert } from './components';
 
 export const App: FunctionComponent = () => {
   const setConnection = connectionStore.useSetState();
@@ -36,6 +37,8 @@ export const App: FunctionComponent = () => {
 
   return (
     <>
+      <Alert />
+
       <Box sx={{ width: '100%', position: 'sticky', top: 0, left: 0, background: '#eee', zIndex: 999 }}>
         <Tabs value={tabIndex} onChange={onChangeTabIndex} centered>
           {tabProperties.map((property, i) => (
@@ -43,7 +46,6 @@ export const App: FunctionComponent = () => {
           ))}
         </Tabs>
       </Box>
-
       <Box sx={{ width: '100%' }}>
         {tabProperties.map((property, i) => (
           <Box

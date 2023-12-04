@@ -1,23 +1,23 @@
 import { RecoilStore } from '@/common';
 
-export class PubLog {
+export type PubLog = {
   key: string;
   event: string;
   payload?: any;
   date: Date;
-}
+};
 
-export class SubLog {
+export type SubLog = {
   key: string;
   event: string;
   response?: any;
   date: Date;
-}
+};
 
-export class LogsStoreValue {
+export type LogsStoreValue = {
   pub: PubLog[];
   sub: SubLog[];
-}
+};
 
 export class LogsStore extends RecoilStore<LogsStoreValue> {
   constructor() {
