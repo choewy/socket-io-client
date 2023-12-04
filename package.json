@@ -5,9 +5,10 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "copy": "cp build/index.html build/404.html",
     "test": "craco test",
-    "eject": "craco eject"
+    "eject": "craco eject",
+    "pkg": "node package.js",
+    "copy": "cp build/index.html build/404.html"
   },
   "dependencies": {
     "@craco/craco": "^7.1.0",
@@ -51,6 +52,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "homepage": "https://choewy.github.io/socket-testing-client"
+  }
 }
