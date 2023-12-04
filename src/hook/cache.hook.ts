@@ -2,7 +2,7 @@ import { v4 } from 'uuid';
 import { useCallback, useEffect } from 'react';
 
 import { settingStore, cacheStore } from '@/store';
-import { cacheService } from '@/service';
+import { cacheService, socketService } from '@/service';
 import { AlertEvent, CacheEvent } from '@/event';
 
 export class CacheHook {
@@ -65,6 +65,8 @@ export class CacheHook {
       });
 
       if (settingId === cacheSettingId) {
+        socketService.clearClient();
+
         setSetting({ ...settingStore.init, id: v4() });
       }
     }, [settingId, cacheSettingId, setSetting]);

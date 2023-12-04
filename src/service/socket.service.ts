@@ -6,13 +6,17 @@ import { SocketLogEvent } from '@/event';
 export class SocketService {
   client: SocketClient | null = null;
 
-  createClient(setting: SettingStoreValue) {
+  clearClient() {
     if (this.client instanceof SocketClient) {
       this.client.disconnect();
       this.client = null;
     }
 
     SocketLogEvent.dispatchInit();
+  }
+
+  createClient(setting: SettingStoreValue) {
+    this.clearClient();
 
     this.client = new SocketClient({
       url: setting.url,
