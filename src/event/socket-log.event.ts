@@ -1,6 +1,7 @@
 import { v4 } from 'uuid';
 
 import { SocketPubLog, SocketSubLog } from '@/store';
+import { DateTime } from 'luxon';
 
 export class SocketLogEvent {
   static initEventName = 'socket-init-event';
@@ -16,7 +17,7 @@ export class SocketLogEvent {
 
     window.dispatchEvent(
       new CustomEvent(this.pubEventName, {
-        detail: { key: v4(), date: new Date(), event, payload } as SocketPubLog,
+        detail: { key: v4(), date: DateTime.local().toFormat('yyyy-MM-dd HH:mm:ss'), event, payload } as SocketPubLog,
       }),
     );
   }
@@ -26,7 +27,7 @@ export class SocketLogEvent {
 
     window.dispatchEvent(
       new CustomEvent(this.subEventName, {
-        detail: { key: v4(), date: new Date(), event, response } as SocketSubLog,
+        detail: { key: v4(), date: DateTime.local().toFormat('yyyy-MM-dd HH:mm:ss'), event, response } as SocketSubLog,
       }),
     );
   }

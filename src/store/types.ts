@@ -30,14 +30,14 @@ export type SocketPubLog = {
   key: string;
   event: string;
   payload: any;
-  date: Date;
+  date: string;
 };
 
 export type SocketSubLog = {
   key: string;
   event: string;
   response: any;
-  date: Date;
+  date: string;
 };
 
 export type SocketEventLogStoreValue = {
