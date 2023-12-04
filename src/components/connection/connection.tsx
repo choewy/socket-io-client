@@ -2,8 +2,10 @@ import { FunctionComponent, SyntheticEvent, useCallback, useState } from 'react'
 
 import { Box, Button, Tab, Tabs } from '@mui/material';
 
-import { SocketClient, localStorageService, socketStorage } from '@/core';
 import { connectionStore, logsStore } from '@/store';
+import { SocketClient, socketStorage } from '@/core';
+import { connectionCacheService } from '@/service';
+import { connectionHook } from '@/hook';
 
 import { ConnectionDefault } from './connection-default';
 import { ConnectionAuthList } from './connection-auth-list';
@@ -14,6 +16,8 @@ export const Connection: FunctionComponent = () => {
   const setLogs = logsStore.useSetState();
 
   const [{ url, nsp, transport, auths, listenEventNames }, setConnection] = connectionStore.useState();
+
+  connectionHook.useCache();
 
   const onChangeTab = useCallback(
     (_: SyntheticEvent<Element, Event>, value: number | string) => {
@@ -33,7 +37,7 @@ export const Connection: FunctionComponent = () => {
       return;
     }
 
-    localStorageService.setValue({
+    connectionCacheService.setValue({
       date: new Date(),
       connection: { url, nsp, transport, auths, listenEventNames },
     });

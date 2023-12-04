@@ -1,40 +1,14 @@
-import { FunctionComponent, SyntheticEvent, useCallback, useEffect, useState } from 'react';
+import { FunctionComponent } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 import { Box, Tabs, Tab } from '@mui/material';
 
 import { tabProperties } from './tab';
-import { connectionStore } from './store';
-import { localStorageService } from './core';
+import { tabHook } from './hook';
 import { Alert } from './components';
-import { Helmet } from 'react-helmet-async';
 
 export const App: FunctionComponent = () => {
-  const setConnection = connectionStore.useSetState();
-
-  const [tabIndex, setTabIndex] = useState<number>(0);
-
-  useEffect(() => {
-    const connectionValue = localStorageService.getValueByLastest();
-
-    if (connectionValue == null) {
-      return;
-    }
-
-    setConnection(connectionValue.connection);
-  }, [setConnection]);
-
-  const onChangeTabIndex = useCallback(
-    (_: SyntheticEvent<Element, Event>, value: string | number) => {
-      value = Number(value);
-
-      if (Number.isNaN(value)) {
-        return;
-      }
-
-      setTabIndex(value);
-    },
-    [setTabIndex],
-  );
+  const tabProps = tabHook.useProps();
 
   return (
     <>
@@ -44,18 +18,18 @@ export const App: FunctionComponent = () => {
       <Alert />
 
       <Box sx={{ width: '100%', position: 'sticky', top: 0, left: 0, background: '#eee', zIndex: 999 }}>
-        <Tabs value={tabIndex} onChange={onChangeTabIndex} centered>
+        <Tabs value={tabProps.value} onChange={tabProps.onChange} centered>
           {tabProperties.map((property, i) => (
             <Tab key={property.key} label={property.title} value={i} />
           ))}
         </Tabs>
       </Box>
       <Box sx={{ width: '100%' }}>
-        {tabProperties.map((property, i) => (
+        {tabProperties.map((property, value) => (
           <Box
             key={property.key}
             sx={{
-              display: tabIndex !== i ? 'none' : 'flex',
+              display: tabProps.value !== value ? 'none' : 'flex',
               justifyContent: 'center',
               width: '100%',
               height: '90vh',
