@@ -1,4 +1,5 @@
-import { RecoilStore } from '@/core';
+import { RecoilStore } from '@/common';
+import { SocketTransport } from '@/core';
 
 export type ConnectionAuthValue = {
   key: string;
@@ -7,9 +8,10 @@ export type ConnectionAuthValue = {
 
 export type ConnectionStoreValue = {
   url: string;
-  auths: ConnectionAuthValue[];
   nsp: string;
-  listeners: string[];
+  transport: SocketTransport;
+  auths: ConnectionAuthValue[];
+  listenEventNames: string[];
 };
 
 export class ConnectionStore extends RecoilStore<ConnectionStoreValue> {
@@ -17,8 +19,9 @@ export class ConnectionStore extends RecoilStore<ConnectionStoreValue> {
     super(ConnectionStore.name, {
       url: '',
       nsp: '',
+      transport: SocketTransport.Polling,
       auths: [],
-      listeners: [],
+      listenEventNames: [],
     });
   }
 }

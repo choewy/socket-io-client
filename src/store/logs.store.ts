@@ -1,4 +1,4 @@
-import { RecoilStore } from '@/core';
+import { RecoilStore } from '@/common';
 
 export class PubLog {
   key: string;
@@ -14,10 +14,12 @@ export class SubLog {
   date: Date;
 }
 
-export class LogsStore extends RecoilStore<{
+export class LogsStoreValue {
   pub: PubLog[];
   sub: SubLog[];
-}> {
+}
+
+export class LogsStore extends RecoilStore<LogsStoreValue> {
   constructor() {
     super(LogsStore.name, {
       pub: [],
