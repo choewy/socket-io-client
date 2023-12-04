@@ -1,26 +1,26 @@
-# Socket Testing Client
+# Socket.io Client
 
-## Testing Client
+## Client
 
-- https://choewy.github.io/socket-testing-client
+- https://choewy.github.io/socket-io-client
 
 ```bash
-git clone https://github.com/choewy/socket-testing-client.git
+git clone https://github.com/choewy/socket-io-client.git
 
-cd socket-testing-client
+cd socket-io-client
 
 npm ci
 npm run start
 ```
 
-## Testing Server
+## Server
 
-- https://github.com/choewy/socket-testing-client/tree/server
+- https://github.com/choewy/socket-io-client/tree/server
 
 ```bash
-git clone -b server https://github.com/choewy/socket-testing-client.git socket-testing-server
+git clone -b server https://github.com/choewy/socket-io-client.git socket-io-server
 
-cd socket-testing-server
+cd socket-io-server
 
 npm ci
 npm run start
