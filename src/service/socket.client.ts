@@ -33,7 +33,7 @@ export class SocketClient extends Socket {
       const response = JSON.stringify(args, null, 2);
 
       let variant: AlertVariant = 'info';
-      let message = `received "${event}" with ${response}`;
+      let message = `received "${event}"`;
 
       if (['connect'].includes(event)) {
         variant = 'success';
@@ -91,14 +91,25 @@ export class SocketClient extends Socket {
   }
 
   emit(event: string, ...args: any[]) {
+    args = args.map((arg) => {
+      let value = arg;
+      try {
+        value = JSON.parse(arg);
+      } catch {}
+
+      return value;
+    });
+
     if (this.ignoreDipatchEvent === false) {
       SocketLogEvent.dispatchPub(event, ...args);
       AlertEvent.dispatch({
         variant: 'success',
-        message: `send "${event}" with ${JSON.stringify(args, null, 2)}`,
+        message: `send "${event}"`,
       });
     }
 
-    return super.emit(event, ...args);
+    return super.emit(event, ...args, (...args: any[]) => {
+      this.onEventHandler(`${event}(ack)`)(...args);
+    });
   }
 }

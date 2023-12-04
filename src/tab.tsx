@@ -18,8 +18,8 @@ export const tabProperties: TabProperty[] = [
     component: <Setting />,
   },
   {
-    key: [key, 'MONITOR'].join('_'),
-    title: 'MONITOR',
+    key: [key, 'INTERACTION'].join('_'),
+    title: 'INTERACTION',
     component: <Monitor />,
   },
   {
