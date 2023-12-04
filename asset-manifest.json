@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/socket-testing-client/static/css/main.043210aa.css",
-    "main.js": "/socket-testing-client/static/js/main.ffa5f0c2.js",
+    "main.js": "/socket-testing-client/static/js/main.79dbff6b.js",
     "static/js/787.293dae1d.chunk.js": "/socket-testing-client/static/js/787.293dae1d.chunk.js",
     "index.html": "/socket-testing-client/index.html",
     "main.043210aa.css.map": "/socket-testing-client/static/css/main.043210aa.css.map",
-    "main.ffa5f0c2.js.map": "/socket-testing-client/static/js/main.ffa5f0c2.js.map",
+    "main.79dbff6b.js.map": "/socket-testing-client/static/js/main.79dbff6b.js.map",
     "787.293dae1d.chunk.js.map": "/socket-testing-client/static/js/787.293dae1d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.043210aa.css",
-    "static/js/main.ffa5f0c2.js"
+    "static/js/main.79dbff6b.js"
   ]
 }
