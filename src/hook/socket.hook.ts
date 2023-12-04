@@ -17,10 +17,10 @@ export class SocketHook {
       s.authValues = setting.authValues.filter((authValues) => authValues.key || authValues.value);
       s.eventNames = setting.eventNames.filter((eventName) => eventName);
 
-      setSetting(s);
-
       socketService.createClient(s);
       cacheService.setValue(s);
+
+      setSetting(s);
     }, [setting, setSetting]);
   }
 
