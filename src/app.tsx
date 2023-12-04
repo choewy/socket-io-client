@@ -39,7 +39,7 @@ export const App: FunctionComponent = () => {
   return (
     <>
       <Helmet>
-        <title>Socket Testing Client</title>
+        <title>Socket.io Client</title>
       </Helmet>
       <Alert />
 
