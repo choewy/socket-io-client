@@ -14,7 +14,7 @@ export type ConnectionListenerListProps = {
 
 export const ConnectionListenerList: FunctionComponent<ConnectionListenerListProps> = ({ values, setConnection }) => {
   const onClickButton = useCallback(
-    () => setConnection((prev) => ({ ...prev, listeners: [...prev.listeners, ''] })),
+    () => setConnection((prev) => ({ ...prev, listenEventNames: [...prev.listenEventNames, ''] })),
     [setConnection],
   );
 

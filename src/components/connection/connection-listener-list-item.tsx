@@ -25,7 +25,9 @@ export const ConnectionListItem: FunctionComponent<ConnectionListenerListItemPro
     (e: ChangeEvent<HTMLInputElement>) => {
       setConnection((prev) => ({
         ...prev,
-        listeners: prev.listeners.map((listner, i) => (i === index ? e.target.value : listner)),
+        listenEventNames: prev.listenEventNames.map((listenEventName, i) =>
+          i === index ? e.target.value : listenEventName,
+        ),
       }));
     },
     [index, setConnection],

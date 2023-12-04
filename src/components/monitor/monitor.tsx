@@ -1,10 +1,8 @@
-import { v4 } from 'uuid';
 import { ChangeEvent, FunctionComponent, useCallback, useState } from 'react';
 
 import { Box, Button, TextField, TextFieldProps } from '@mui/material';
 
-import { globalStorage } from '@/core';
-import { logsStore } from '@/store';
+import { storage } from '@/core';
 
 import { MonitorLogs } from './monitor-logs';
 
@@ -14,8 +12,6 @@ const textFieldProps: TextFieldProps = {
 };
 
 export const Monitor: FunctionComponent = () => {
-  const setLogs = logsStore.useSetState();
-
   const [pubInfo, setPubInfo] = useState<{ event: string; payload: string }>({
     event: '',
     payload: '',
@@ -32,7 +28,7 @@ export const Monitor: FunctionComponent = () => {
   );
 
   const onClickSend = useCallback(() => {
-    if (globalStorage.socket == null || globalStorage.socket.disconnected) {
+    if (storage.socket == null || storage.socket.disconnected) {
       return;
     }
 
@@ -46,13 +42,8 @@ export const Monitor: FunctionComponent = () => {
       payload = JSON.parse(pubInfo.payload);
     } catch {}
 
-    globalStorage.socket.emit(pubInfo.event, payload);
-
-    setLogs((prev) => ({
-      ...prev,
-      pub: [...prev.pub, { key: v4(), event: pubInfo.event, payload, date: new Date() }],
-    }));
-  }, [pubInfo, setLogs]);
+    storage.socket.emit(pubInfo.event, payload);
+  }, [pubInfo]);
 
   return (
     <Box sx={{ width: '100%', height: '100%' }}>

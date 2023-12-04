@@ -1,7 +1,7 @@
 import { SocketClient } from './socket-client';
 
-export class GlobalStorage {
+export class Storage {
   socket: SocketClient | null = null;
 }
 
-export const globalStorage = new GlobalStorage();
+export const storage = new Storage();
