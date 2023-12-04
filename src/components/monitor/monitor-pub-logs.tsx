@@ -19,7 +19,13 @@ export const MonitorPubLogs: FunctionComponent<MonitorPubLogsProps> = ({ logs })
       }}
     >
       <pre>
-        <code>{JSON.stringify(logs, null, 2)}</code>
+        <code>
+          {JSON.stringify(
+            logs.map(({ key, ...log }) => log),
+            null,
+            2,
+          )}
+        </code>
       </pre>
     </Box>
   );

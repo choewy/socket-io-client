@@ -21,7 +21,7 @@ export class SocketClient extends Socket {
   }
 
   private pushSubLog(event: string, ...args: any[]) {
-    const response = args.length === 1 ? args.shift() ?? null : args;
+    const response = args.length < 2 ? args.shift() ?? null : args;
 
     this.dispatch.setLogs((prev) => ({
       ...prev,
@@ -30,7 +30,7 @@ export class SocketClient extends Socket {
   }
 
   private pushPubLog(event: string, ...args: any[]) {
-    const payload = args.length === 1 ? args.shift() ?? null : args;
+    const payload = args.length < 2 ? args.shift() ?? null : args;
 
     this.dispatch.setLogs((prev) => ({
       ...prev,
