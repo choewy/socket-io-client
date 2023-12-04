@@ -1,14 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { AlertStoreValue, alertStore } from '@/store';
-
-export class AlertEvent {
-  static eventName = 'alert-event';
-
-  static dispatch(alert: AlertStoreValue): void {
-    window.dispatchEvent(new CustomEvent(this.eventName, { detail: alert }));
-  }
-}
+import { AlertEvent } from '@/event';
 
 export class AlertHook {
   useListener(): void {

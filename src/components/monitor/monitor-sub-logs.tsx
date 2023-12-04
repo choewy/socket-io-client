@@ -2,10 +2,10 @@ import { FunctionComponent } from 'react';
 
 import { Box } from '@mui/material';
 
-import { SubLog } from '@/store';
+import { SocketSubLog } from '@/store';
 
 export type MonitorSubLogsProps = {
-  logs: SubLog[];
+  logs: SocketSubLog[];
 };
 
 export const MonitorSubLogs: FunctionComponent<MonitorSubLogsProps> = ({ logs }) => {

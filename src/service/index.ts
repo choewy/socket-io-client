@@ -1,3 +1,5 @@
 export * from './types';
-export * from './connection-cache.event';
+
+export * from './socket.client';
+export * from './socket.service';
 export * from './connection-cache.service';

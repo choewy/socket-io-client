@@ -1,8 +1,8 @@
 import { useCallback, useEffect } from 'react';
 
 import { connectionCacheStore, connectionStore } from '@/store';
-import { ConnectionCacheEvent, connectionCacheService } from '@/service';
-import { AlertEvent } from './alert.hook';
+import { connectionCacheService } from '@/service';
+import { AlertEvent, ConnectionCacheEvent } from '@/event';
 
 export class ConnectionCacheHook {
   useListener() {

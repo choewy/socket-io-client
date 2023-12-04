@@ -2,10 +2,10 @@ import { FunctionComponent } from 'react';
 
 import { Box } from '@mui/material';
 
-import { PubLog } from '@/store';
+import { SocketPubLog } from '@/store';
 
 export type MonitorPubLogsProps = {
-  logs: PubLog[];
+  logs: SocketPubLog[];
 };
 
 export const MonitorPubLogs: FunctionComponent<MonitorPubLogsProps> = ({ logs }) => {

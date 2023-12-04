@@ -13,8 +13,7 @@ import {
   TextFieldProps,
 } from '@mui/material';
 
-import { ConnectionStoreValue } from '@/store';
-import { SocketTransport } from '@/core';
+import { ConnectionStoreValue, SocketTransport } from '@/store';
 
 const textFieldProps: TextFieldProps = {
   size: 'small',

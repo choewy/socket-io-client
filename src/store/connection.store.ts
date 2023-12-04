@@ -1,5 +1,6 @@
 import { RecoilStore } from '@/common';
-import { SocketTransport } from '@/core';
+
+import { SocketTransport } from './enums';
 
 export type ConnectionAuthValue = {
   key: string;

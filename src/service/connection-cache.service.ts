@@ -1,6 +1,6 @@
 import { ConnectionCache } from './types';
 
-import { ConnectionCacheEvent } from './connection-cache.event';
+import { ConnectionCacheEvent } from '@/event';
 
 export class ConnectionCacheService {
   private readonly KEY = 'connection-cache';

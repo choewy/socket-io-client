@@ -2,9 +2,8 @@ import { ChangeEvent, FunctionComponent, useCallback, useState } from 'react';
 
 import { Box, Button, TextField, TextFieldProps } from '@mui/material';
 
-import { socketStorage } from '@/core';
-
 import { MonitorLogs } from './monitor-logs';
+import { socketHook } from '@/hook';
 
 const textFieldProps: TextFieldProps = {
   size: 'small',
@@ -26,24 +25,6 @@ export const Monitor: FunctionComponent = () => {
     (e: ChangeEvent<HTMLInputElement>) => setPubInfo((prev) => ({ ...prev, payload: e.target.value })),
     [setPubInfo],
   );
-
-  const onClickSend = useCallback(() => {
-    if (socketStorage.current == null || socketStorage.current.disconnected) {
-      return;
-    }
-
-    if (pubInfo.event === '') {
-      return;
-    }
-
-    let payload: JSON = null;
-
-    try {
-      payload = JSON.parse(pubInfo.payload);
-    } catch {}
-
-    socketStorage.current.emit(pubInfo.event, payload);
-  }, [pubInfo]);
 
   return (
     <Box sx={{ width: '100%', height: '100%' }}>
@@ -73,7 +54,7 @@ export const Monitor: FunctionComponent = () => {
             onChange={onChangePayload}
           />
         </Box>
-        <Button onClick={onClickSend}>Send</Button>
+        <Button onClick={socketHook.useSendMessageHandler(pubInfo.event, pubInfo.payload)}>Send</Button>
       </Box>
       <MonitorLogs />
     </Box>
