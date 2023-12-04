@@ -1,5 +1,5 @@
 {
-  "name": "socket-test-server",
+  "name": "socket-io-server",
   "version": "1.0.0",
   "scripts": {
     "start": "nodemon -w src -e ts --exec ts-node src/main.ts"

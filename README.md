@@ -1,4 +1,4 @@
-# Socket Testing Server
+# Socket.io Server
 
 ```bash
 npm ci
