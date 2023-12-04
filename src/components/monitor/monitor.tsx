@@ -2,7 +2,7 @@ import { ChangeEvent, FunctionComponent, useCallback, useState } from 'react';
 
 import { Box, Button, TextField, TextFieldProps } from '@mui/material';
 
-import { storage } from '@/core';
+import { socketStorage } from '@/core';
 
 import { MonitorLogs } from './monitor-logs';
 
@@ -28,7 +28,7 @@ export const Monitor: FunctionComponent = () => {
   );
 
   const onClickSend = useCallback(() => {
-    if (storage.socket == null || storage.socket.disconnected) {
+    if (socketStorage.current == null || socketStorage.current.disconnected) {
       return;
     }
 
@@ -42,7 +42,7 @@ export const Monitor: FunctionComponent = () => {
       payload = JSON.parse(pubInfo.payload);
     } catch {}
 
-    storage.socket.emit(pubInfo.event, payload);
+    socketStorage.current.emit(pubInfo.event, payload);
   }, [pubInfo]);
 
   return (

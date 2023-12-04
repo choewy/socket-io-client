@@ -9,6 +9,8 @@ export type MonitorSubLogsProps = {
 };
 
 export const MonitorSubLogs: FunctionComponent<MonitorSubLogsProps> = ({ logs }) => {
+  const rows = logs.map(({ key, ...log }) => log);
+
   return (
     <Box
       sx={{
@@ -19,13 +21,7 @@ export const MonitorSubLogs: FunctionComponent<MonitorSubLogsProps> = ({ logs })
       }}
     >
       <pre>
-        <code>
-          {JSON.stringify(
-            logs.map(({ key, ...log }) => log),
-            null,
-            2,
-          )}
-        </code>
+        <code>{JSON.stringify(rows, null, 2)}</code>
       </pre>
     </Box>
   );

@@ -2,7 +2,7 @@ import { FunctionComponent, SyntheticEvent, useCallback, useState } from 'react'
 
 import { Box, Button, Tab, Tabs } from '@mui/material';
 
-import { SocketClient, storage } from '@/core';
+import { SocketClient, localStorageService, socketStorage } from '@/core';
 import { connectionStore, logsStore } from '@/store';
 
 import { ConnectionDefault } from './connection-default';
@@ -33,12 +33,17 @@ export const Connection: FunctionComponent = () => {
       return;
     }
 
-    if (storage.socket) {
-      if (storage.socket.connected) {
-        storage.socket.disconnect();
+    localStorageService.setValue({
+      date: new Date(),
+      connection: { url, nsp, transport, auths, listenEventNames },
+    });
+
+    if (socketStorage.current) {
+      if (socketStorage.current.connected) {
+        socketStorage.current.disconnect();
       }
 
-      storage.socket = null;
+      socketStorage.current = null;
     }
 
     setLogs({ pub: [], sub: [] });
@@ -48,8 +53,8 @@ export const Connection: FunctionComponent = () => {
     socket.initAuth(auths);
     socket.initListeners(listenEventNames);
 
-    storage.socket = socket;
-    storage.socket.connect();
+    socketStorage.current = socket;
+    socketStorage.current.connect();
   }, [url, nsp, transport, auths, listenEventNames, setLogs]);
 
   return (

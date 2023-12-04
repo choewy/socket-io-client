@@ -1,11 +1,25 @@
-import { FunctionComponent, SyntheticEvent, useCallback, useState } from 'react';
+import { FunctionComponent, SyntheticEvent, useCallback, useEffect, useState } from 'react';
 
 import { Box, Tabs, Tab } from '@mui/material';
 
 import { tabProperties } from './tab';
+import { connectionStore } from './store';
+import { localStorageService } from './core';
 
 export const App: FunctionComponent = () => {
+  const setConnection = connectionStore.useSetState();
+
   const [tabIndex, setTabIndex] = useState<number>(0);
+
+  useEffect(() => {
+    const connectionValue = localStorageService.getValueByLastest();
+
+    if (connectionValue == null) {
+      return;
+    }
+
+    setConnection(connectionValue.connection);
+  }, [setConnection]);
 
   const onChangeTabIndex = useCallback(
     (_: SyntheticEvent<Element, Event>, value: string | number) => {
