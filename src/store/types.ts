@@ -13,6 +13,7 @@ export type SettingAuthValue = {
 };
 
 export type SettingStoreValue = {
+  id: string;
   url: string;
   nsp: string;
   transport: SocketTransport;

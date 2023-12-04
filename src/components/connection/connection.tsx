@@ -32,6 +32,7 @@ export const Connection: FunctionComponent = () => {
       </Tabs>
 
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Button onClick={settingHook.useResetHandler()}>Reset</Button>
         <Button onClick={socketHook.useConnectHandler(setting)}>Connect</Button>
       </Box>
 

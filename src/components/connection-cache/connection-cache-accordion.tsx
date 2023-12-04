@@ -4,29 +4,34 @@ import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, Button
 
 import { cacheHook } from '@/hook';
 import { CacheStoreValue } from '@/store';
+import { DateTime } from 'luxon';
 
 export type SettingListItemProps = {
-  index: number;
+  settingId: string;
   cache: CacheStoreValue;
 };
 
-export const ConnectionCacheAccordion: FunctionComponent<SettingListItemProps> = ({ index, cache }) => {
+export const ConnectionCacheAccordion: FunctionComponent<SettingListItemProps> = ({ settingId, cache }) => {
+  const { id, ...setting } = cache.setting;
+
+  const isCurrent = settingId === id;
+
   return (
-    <Accordion>
-      <AccordionSummary>
-        <Typography>{cache.setting.url}</Typography>
+    <Accordion defaultExpanded={settingId === id}>
+      <AccordionSummary sx={{ backgroundColor: isCurrent ? '#eff' : undefined }}>
+        <Typography>{DateTime.fromJSDate(new Date(cache.date)).toFormat('yyyy-MM-dd HH:mm:ss')}</Typography>
       </AccordionSummary>
-      <AccordionDetails>
+      <AccordionDetails sx={{ overflow: 'scroll' }}>
         <pre>
-          <code>{JSON.stringify(cache.setting, null, 2)}</code>
+          <code>{JSON.stringify(setting, null, 2)}</code>
         </pre>
       </AccordionDetails>
       <AccordionActions>
-        <Button size="small" onClick={cacheHook.useUseHandler(index)}>
-          Use
+        <Button size="small" onClick={cacheHook.useLoadHandler(id)} disabled={isCurrent}>
+          {isCurrent ? 'Used' : 'Load'}
         </Button>
-        <Button size="small" color="error" onClick={cacheHook.useDeleteHandler(index)}>
-          Remove
+        <Button size="small" color="error" onClick={cacheHook.useDeleteHandler(settingId, id)}>
+          Delete
         </Button>
       </AccordionActions>
     </Accordion>

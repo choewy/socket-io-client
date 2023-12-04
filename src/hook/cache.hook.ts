@@ -1,3 +1,4 @@
+import { v4 } from 'uuid';
 import { useCallback, useEffect } from 'react';
 
 import { settingStore, cacheStore } from '@/store';
@@ -26,28 +27,47 @@ export class CacheHook {
     }, [setCache]);
   }
 
-  useUseHandler(index: number) {
+  useLoadHandler(id: string) {
     const setSetting = settingStore.useSetState();
 
     return useCallback(() => {
-      setSetting(cacheService.getValueByIndex(index).setting);
+      const cache = cacheService.getValueById(id);
 
-      AlertEvent.dispatch({
-        variant: 'success',
-        message: 'setting changed.',
-      });
-    }, [index, setSetting]);
+      if (cache == null) {
+        AlertEvent.dispatch({
+          variant: 'warning',
+          message: 'not found setting.',
+        });
+
+        CacheEvent.dispatchSettingChange();
+      } else {
+        setSetting(cache.setting);
+
+        cacheService.setLoadId(cache.setting.id);
+
+        AlertEvent.dispatch({
+          variant: 'success',
+          message: 'setting loaded.',
+        });
+      }
+    }, [id, setSetting]);
   }
 
-  useDeleteHandler(index: number) {
+  useDeleteHandler(settingId: string, cacheSettingId: string) {
+    const setSetting = settingStore.useSetState();
+
     return useCallback(() => {
-      cacheService.deleteValueByIndex(index);
+      cacheService.deleteValueById(cacheSettingId);
 
       AlertEvent.dispatch({
         variant: 'success',
         message: 'setting removed.',
       });
-    }, [index]);
+
+      if (settingId === cacheSettingId) {
+        setSetting({ ...settingStore.init, id: v4() });
+      }
+    }, [settingId, cacheSettingId, setSetting]);
   }
 }
 

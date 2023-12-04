@@ -11,7 +11,7 @@ export class SocketHook {
       }
 
       socketService.createClient(setting);
-      cacheService.setValue({ setting, date: new Date() });
+      cacheService.setValue(setting);
     }, [setting]);
   }
 

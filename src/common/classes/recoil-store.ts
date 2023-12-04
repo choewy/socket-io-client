@@ -4,10 +4,10 @@ import { RecoilState, atom, useRecoilState, useRecoilValue, useResetRecoilState,
 export class RecoilStore<T> {
   private readonly store: RecoilState<T>;
 
-  constructor(key: string, value: T) {
+  constructor(key: string, readonly init: T) {
     this.store = atom({
       key: [key, v4()].join('_'),
-      default: value,
+      default: init,
     });
   }
 
