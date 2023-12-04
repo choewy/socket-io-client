@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/socket-io-client/static/css/main.043210aa.css",
-    "main.js": "/socket-io-client/static/js/main.659be722.js",
+    "main.js": "/socket-io-client/static/js/main.858d1d9b.js",
     "static/js/787.5b0644c1.chunk.js": "/socket-io-client/static/js/787.5b0644c1.chunk.js",
     "index.html": "/socket-io-client/index.html",
     "main.043210aa.css.map": "/socket-io-client/static/css/main.043210aa.css.map",
-    "main.659be722.js.map": "/socket-io-client/static/js/main.659be722.js.map",
+    "main.858d1d9b.js.map": "/socket-io-client/static/js/main.858d1d9b.js.map",
     "787.5b0644c1.chunk.js.map": "/socket-io-client/static/js/787.5b0644c1.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.043210aa.css",
-    "static/js/main.659be722.js"
+    "static/js/main.858d1d9b.js"
   ]
 }
