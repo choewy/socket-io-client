@@ -1,7 +1,7 @@
-export class ConnectionCacheEvent {
-  static eventName = 'connection-cache-change';
+export class CacheEvent {
+  static settingChangeEventName = 'cache-setting-change';
 
-  static dispatch(): void {
-    window.dispatchEvent(new Event(this.eventName));
+  static dispatchSettingChange(): void {
+    window.dispatchEvent(new Event(this.settingChangeEventName));
   }
 }

@@ -3,7 +3,7 @@ import { SetterOrUpdater } from 'recoil';
 
 import { ListItem, TextField, TextFieldProps } from '@mui/material';
 
-import { ConnectionStoreValue } from '@/store';
+import { SettingStoreValue } from '@/store';
 
 const textFieldProps: TextFieldProps = {
   size: 'small',
@@ -13,24 +13,22 @@ const textFieldProps: TextFieldProps = {
 export type ConnectionListenerListItemProps = {
   index: number;
   value: string;
-  setConnection: SetterOrUpdater<ConnectionStoreValue>;
+  setSetting: SetterOrUpdater<SettingStoreValue>;
 };
 
 export const ConnectionListItem: FunctionComponent<ConnectionListenerListItemProps> = ({
   index,
   value,
-  setConnection,
+  setSetting,
 }) => {
   const onChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      setConnection((prev) => ({
+      setSetting((prev) => ({
         ...prev,
-        listenEventNames: prev.listenEventNames.map((listenEventName, i) =>
-          i === index ? e.target.value : listenEventName,
-        ),
+        eventNames: prev.eventNames.map((eventName, i) => (i === index ? e.target.value : eventName)),
       }));
     },
-    [index, setConnection],
+    [index, setSetting],
   );
 
   return (

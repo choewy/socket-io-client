@@ -3,19 +3,19 @@ import { SetterOrUpdater } from 'recoil';
 
 import { Box, Button, List } from '@mui/material';
 
-import { ConnectionAuthValue, ConnectionStoreValue } from '@/store';
+import { SettingAuthValue, SettingStoreValue } from '@/store';
 
 import { ConnectionAuthListItem } from './connection-auth-list-item';
 
 type ConnectionAuthListProps = {
-  values: ConnectionAuthValue[];
-  setConnection: SetterOrUpdater<ConnectionStoreValue>;
+  values: SettingAuthValue[];
+  setSetting: SetterOrUpdater<SettingStoreValue>;
 };
 
-export const ConnectionAuthList: FunctionComponent<ConnectionAuthListProps> = ({ values, setConnection }) => {
+export const ConnectionAuthList: FunctionComponent<ConnectionAuthListProps> = ({ values, setSetting }) => {
   const onClickButton = useCallback(
-    () => setConnection((prev) => ({ ...prev, auths: [...prev.auths, { key: '', value: '' }] })),
-    [setConnection],
+    () => setSetting((prev) => ({ ...prev, authValues: [...prev.authValues, { key: '', value: '' }] })),
+    [setSetting],
   );
 
   return (
@@ -26,7 +26,7 @@ export const ConnectionAuthList: FunctionComponent<ConnectionAuthListProps> = ({
             key={['connection_auth', i].join('_')}
             index={i}
             value={value}
-            setConnection={setConnection}
+            setConnection={setSetting}
           />
         ))}
       </List>

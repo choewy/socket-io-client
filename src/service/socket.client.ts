@@ -1,6 +1,6 @@
 import { Manager, Socket } from 'socket.io-client';
 
-import { ConnectionAuthValue } from '@/store';
+import { SettingAuthValue } from '@/store';
 import { AlertEvent, SocketEvent } from '@/event';
 
 import { SocketClientOptions } from './types';
@@ -42,7 +42,7 @@ export class SocketClient extends Socket {
     return super.disconnect();
   }
 
-  initAuth(authMaps: ConnectionAuthValue[]) {
+  initAuth(authMaps: SettingAuthValue[]) {
     const auth: Record<string, string> = {};
 
     for (const authMap of authMaps) {

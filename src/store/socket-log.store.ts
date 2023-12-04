@@ -1,23 +1,6 @@
 import { RecoilStore } from '@/common';
 
-export type SocketPubLog = {
-  key: string;
-  event: string;
-  payload: any;
-  date: Date;
-};
-
-export type SocketSubLog = {
-  key: string;
-  event: string;
-  response: any;
-  date: Date;
-};
-
-export type SocketEventLogStoreValue = {
-  pub: SocketPubLog[];
-  sub: SocketSubLog[];
-};
+import { SocketEventLogStoreValue } from './types';
 
 export class SocketLogStore extends RecoilStore<SocketEventLogStoreValue> {
   constructor() {

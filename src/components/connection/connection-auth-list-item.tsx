@@ -3,7 +3,7 @@ import { SetterOrUpdater } from 'recoil';
 
 import { ListItem, TextField, TextFieldProps } from '@mui/material';
 
-import { ConnectionAuthValue, ConnectionStoreValue } from '@/store';
+import { SettingAuthValue, SettingStoreValue } from '@/store';
 
 const textFieldProps: TextFieldProps = {
   size: 'small',
@@ -12,8 +12,8 @@ const textFieldProps: TextFieldProps = {
 
 type ConnectionAuthListItemProps = {
   index: number;
-  value: ConnectionAuthValue;
-  setConnection: SetterOrUpdater<ConnectionStoreValue>;
+  value: SettingAuthValue;
+  setConnection: SetterOrUpdater<SettingStoreValue>;
 };
 
 export const ConnectionAuthListItem: FunctionComponent<ConnectionAuthListItemProps> = ({
@@ -25,7 +25,7 @@ export const ConnectionAuthListItem: FunctionComponent<ConnectionAuthListItemPro
     (e: ChangeEvent<HTMLInputElement>) =>
       setConnection((prev) => ({
         ...prev,
-        auths: prev.auths.map((auth, i) => (i === index ? { ...auth, key: e.target.value } : auth)),
+        auths: prev.authValues.map((authValue, i) => (i === index ? { ...authValue, key: e.target.value } : authValue)),
       })),
     [index, setConnection],
   );
@@ -34,7 +34,9 @@ export const ConnectionAuthListItem: FunctionComponent<ConnectionAuthListItemPro
     (e: ChangeEvent<HTMLInputElement>) =>
       setConnection((prev) => ({
         ...prev,
-        auths: prev.auths.map((auth, i) => (i === index ? { ...auth, value: e.target.value } : auth)),
+        auths: prev.authValues.map((authValue, i) =>
+          i === index ? { ...authValue, value: e.target.value } : authValue,
+        ),
       })),
     [index, setConnection],
   );

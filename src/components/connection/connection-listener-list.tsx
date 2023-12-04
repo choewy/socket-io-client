@@ -3,19 +3,19 @@ import { SetterOrUpdater } from 'recoil';
 
 import { Box, Button, List } from '@mui/material';
 
-import { ConnectionStoreValue } from '@/store';
+import { SettingStoreValue } from '@/store';
 
 import { ConnectionListItem } from './connection-listener-list-item';
 
 export type ConnectionListenerListProps = {
   values: string[];
-  setConnection: SetterOrUpdater<ConnectionStoreValue>;
+  setSetting: SetterOrUpdater<SettingStoreValue>;
 };
 
-export const ConnectionListenerList: FunctionComponent<ConnectionListenerListProps> = ({ values, setConnection }) => {
+export const ConnectionListenerList: FunctionComponent<ConnectionListenerListProps> = ({ values, setSetting }) => {
   const onClickButton = useCallback(
-    () => setConnection((prev) => ({ ...prev, listenEventNames: [...prev.listenEventNames, ''] })),
-    [setConnection],
+    () => setSetting((prev) => ({ ...prev, eventNames: [...prev.eventNames, ''] })),
+    [setSetting],
   );
 
   return (
@@ -26,7 +26,7 @@ export const ConnectionListenerList: FunctionComponent<ConnectionListenerListPro
             key={['connection_listener', i].join('_')}
             index={i}
             value={value}
-            setConnection={setConnection}
+            setSetting={setSetting}
           />
         ))}
       </List>

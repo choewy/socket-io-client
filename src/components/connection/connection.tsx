@@ -2,8 +2,8 @@ import { FunctionComponent } from 'react';
 
 import { Box, Button, Tab, Tabs } from '@mui/material';
 
-import { connectionStore } from '@/store';
-import { connectionHook, socketHook, tabHook } from '@/hook';
+import { settingStore } from '@/store';
+import { settingHook, socketHook, tabHook } from '@/hook';
 
 import { ConnectionDefault } from './connection-default';
 import { ConnectionAuthList } from './connection-auth-list';
@@ -12,9 +12,9 @@ import { ConnectionListenerList } from './connection-listener-list';
 export const Connection: FunctionComponent = () => {
   const tabProps = tabHook.useProps();
 
-  const [connection, setConnection] = connectionStore.useState();
+  const [setting, setSetting] = settingStore.useState();
 
-  connectionHook.useCache();
+  settingHook.useCache();
 
   return (
     <Box
@@ -32,22 +32,17 @@ export const Connection: FunctionComponent = () => {
       </Tabs>
 
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Button onClick={socketHook.useConnectHandler(connection)}>Connect</Button>
+        <Button onClick={socketHook.useConnectHandler(setting)}>Connect</Button>
       </Box>
 
       <Box sx={{ display: tabProps.value === 0 ? 'flex' : 'none' }}>
-        <ConnectionDefault
-          url={connection.url}
-          nsp={connection.nsp}
-          transport={connection.transport}
-          setConnection={setConnection}
-        />
+        <ConnectionDefault url={setting.url} nsp={setting.nsp} transport={setting.transport} setSetting={setSetting} />
       </Box>
       <Box sx={{ display: tabProps.value === 1 ? 'flex' : 'none' }}>
-        <ConnectionAuthList values={connection.auths} setConnection={setConnection} />
+        <ConnectionAuthList values={setting.authValues} setSetting={setSetting} />
       </Box>
       <Box sx={{ display: tabProps.value === 2 ? 'flex' : 'none' }}>
-        <ConnectionListenerList values={connection.listenEventNames} setConnection={setConnection} />
+        <ConnectionListenerList values={setting.eventNames} setSetting={setSetting} />
       </Box>
     </Box>
   );

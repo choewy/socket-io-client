@@ -2,15 +2,15 @@ import { FunctionComponent } from 'react';
 
 import { Box } from '@mui/material';
 
-import { connectionCacheStore } from '@/store';
-import { connectionCacheHook } from '@/hook';
+import { cacheStore } from '@/store';
+import { cacheHook } from '@/hook';
 
 import { ConnectionCacheAccordion } from './connection-cache-accordion';
 
 export const ConnectionCaches: FunctionComponent = () => {
-  const caches = connectionCacheStore.useValue();
+  const caches = cacheStore.useValue();
 
-  connectionCacheHook.useListener();
+  cacheHook.useListener();
 
   return (
     <Box sx={{ display: 'flex', width: '100%', height: '100%' }}>

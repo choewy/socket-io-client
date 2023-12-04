@@ -1,18 +1,18 @@
 import { useCallback } from 'react';
 
-import { ConnectionStoreValue } from '@/store';
-import { connectionCacheService, socketService } from '@/service';
+import { SettingStoreValue } from '@/store';
+import { socketService, cacheService } from '@/service';
 
 export class SocketHook {
-  useConnectHandler(connection: ConnectionStoreValue) {
+  useConnectHandler(setting: SettingStoreValue) {
     return useCallback(() => {
-      if (connection.url === '') {
+      if (setting.url === '') {
         return;
       }
 
-      socketService.createClient(connection);
-      connectionCacheService.setValue({ connection, date: new Date() });
-    }, [connection]);
+      socketService.createClient(setting);
+      cacheService.setValue({ setting, date: new Date() });
+    }, [setting]);
   }
 
   useSendMessageHandler(event: string, ...args: any[]) {

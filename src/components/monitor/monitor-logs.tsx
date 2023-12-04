@@ -11,8 +11,6 @@ import { MonitorSubLogs } from './monitor-sub-logs';
 export const MonitorLogs: FunctionComponent = () => {
   const log = socketLogStore.useValue();
 
-  console.log(log);
-
   socketLogHook.useListener();
 
   return (

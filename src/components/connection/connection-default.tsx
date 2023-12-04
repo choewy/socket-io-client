@@ -13,7 +13,7 @@ import {
   TextFieldProps,
 } from '@mui/material';
 
-import { ConnectionStoreValue, SocketTransport } from '@/store';
+import { SettingStoreValue, SocketTransport } from '@/store';
 
 const textFieldProps: TextFieldProps = {
   size: 'small',
@@ -32,29 +32,24 @@ export type ConnectionDefaultProps = {
   url: string;
   nsp: string;
   transport: SocketTransport;
-  setConnection: SetterOrUpdater<ConnectionStoreValue>;
+  setSetting: SetterOrUpdater<SettingStoreValue>;
 };
 
-export const ConnectionDefault: FunctionComponent<ConnectionDefaultProps> = ({
-  url,
-  nsp,
-  transport,
-  setConnection,
-}) => {
+export const ConnectionDefault: FunctionComponent<ConnectionDefaultProps> = ({ url, nsp, transport, setSetting }) => {
   const onChangeUrl = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => setConnection((prev) => ({ ...prev, url: e.target.value })),
-    [setConnection],
+    (e: ChangeEvent<HTMLInputElement>) => setSetting((prev) => ({ ...prev, url: e.target.value })),
+    [setSetting],
   );
 
   const onChangeNsp = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => setConnection((prev) => ({ ...prev, nsp: e.target.value })),
-    [setConnection],
+    (e: ChangeEvent<HTMLInputElement>) => setSetting((prev) => ({ ...prev, nsp: e.target.value })),
+    [setSetting],
   );
 
   const onChangeTransport = useCallback(
     (e: SelectChangeEvent<SocketTransport>, _: ReactNode) =>
-      setConnection((prev) => ({ ...prev, transport: e.target.value as SocketTransport })),
-    [setConnection],
+      setSetting((prev) => ({ ...prev, transport: e.target.value as SocketTransport })),
+    [setSetting],
   );
 
   return (

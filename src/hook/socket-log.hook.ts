@@ -7,6 +7,13 @@ export class SocketLogHook {
   useListener() {
     const setSocketLog = socketLogStore.useSetState();
 
+    const onInitEventHandler = useCallback(
+      (_: Event) => {
+        setSocketLog({ pub: [], sub: [] });
+      },
+      [setSocketLog],
+    );
+
     const onPubEventHandler = useCallback(
       (e: Event) => {
         setSocketLog((prev) => ({
@@ -16,6 +23,7 @@ export class SocketLogHook {
       },
       [setSocketLog],
     );
+
     const onSubEventHandler = useCallback(
       (e: Event) => {
         setSocketLog((prev) => ({
@@ -27,14 +35,16 @@ export class SocketLogHook {
     );
 
     useEffect(() => {
+      window.addEventListener(SocketEvent.initEventName, onInitEventHandler);
       window.addEventListener(SocketEvent.pubEventName, onPubEventHandler);
       window.addEventListener(SocketEvent.subEventName, onSubEventHandler);
 
       return () => {
+        window.removeEventListener(SocketEvent.initEventName, onInitEventHandler);
         window.removeEventListener(SocketEvent.pubEventName, onPubEventHandler);
         window.removeEventListener(SocketEvent.subEventName, onSubEventHandler);
       };
-    }, [onPubEventHandler, onSubEventHandler]);
+    }, [onInitEventHandler, onPubEventHandler, onSubEventHandler]);
   }
 }
 

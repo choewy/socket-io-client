@@ -1,11 +1,6 @@
 import { RecoilStore } from '@/common';
 
-export type AlertVariant = 'info' | 'success' | 'warning' | 'error';
-
-export type AlertStoreValue = {
-  variant: AlertVariant;
-  message: string;
-};
+import { AlertStoreValue } from './types';
 
 export class AlertStore extends RecoilStore<AlertStoreValue[]> {
   constructor() {

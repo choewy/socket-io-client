@@ -1,27 +1,26 @@
-import { ConnectionStoreValue } from '@/store';
+import { SettingStoreValue } from '@/store';
 
 import { SocketClient } from './socket.client';
+import { SocketEvent } from '@/event';
 
 export class SocketService {
   client: SocketClient | null = null;
 
-  createClient(connection: ConnectionStoreValue) {
-    console.log(connection);
+  createClient(setting: SettingStoreValue) {
     if (this.client instanceof SocketClient) {
-      // send event(remove logs)
-
+      SocketEvent.dispatchInit();
       this.client.disconnect();
       this.client = null;
     }
 
     this.client = new SocketClient({
-      url: connection.url,
-      transport: connection.transport,
-      nsp: connection.nsp,
+      url: setting.url,
+      transport: setting.transport,
+      nsp: setting.nsp,
     });
 
-    this.client.initAuth(connection.auths);
-    this.client.initListeners(connection.listenEventNames);
+    this.client.initAuth(setting.authValues);
+    this.client.initListeners(setting.eventNames);
     this.client.connect();
   }
 
