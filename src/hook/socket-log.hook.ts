@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react';
 
 import { SocketPubLog, SocketSubLog, socketLogStore } from '@/store';
-import { SocketEvent } from '@/event';
+import { SocketLogEvent } from '@/event';
 
 export class SocketLogHook {
   useListener() {
@@ -35,14 +35,14 @@ export class SocketLogHook {
     );
 
     useEffect(() => {
-      window.addEventListener(SocketEvent.initEventName, onInitEventHandler);
-      window.addEventListener(SocketEvent.pubEventName, onPubEventHandler);
-      window.addEventListener(SocketEvent.subEventName, onSubEventHandler);
+      window.addEventListener(SocketLogEvent.initEventName, onInitEventHandler);
+      window.addEventListener(SocketLogEvent.pubEventName, onPubEventHandler);
+      window.addEventListener(SocketLogEvent.subEventName, onSubEventHandler);
 
       return () => {
-        window.removeEventListener(SocketEvent.initEventName, onInitEventHandler);
-        window.removeEventListener(SocketEvent.pubEventName, onPubEventHandler);
-        window.removeEventListener(SocketEvent.subEventName, onSubEventHandler);
+        window.removeEventListener(SocketLogEvent.initEventName, onInitEventHandler);
+        window.removeEventListener(SocketLogEvent.pubEventName, onPubEventHandler);
+        window.removeEventListener(SocketLogEvent.subEventName, onSubEventHandler);
       };
     }, [onInitEventHandler, onPubEventHandler, onSubEventHandler]);
   }

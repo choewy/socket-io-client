@@ -1,7 +1,7 @@
 import { Manager, Socket } from 'socket.io-client';
 
 import { AlertVariant, SettingAuthValue } from '@/store';
-import { AlertEvent, SocketEvent } from '@/event';
+import { AlertEvent, SocketLogEvent } from '@/event';
 
 import { SocketClientOptions } from './types';
 
@@ -28,7 +28,7 @@ export class SocketClient extends Socket {
         return;
       }
 
-      SocketEvent.dispatchSub(event, ...args);
+      SocketLogEvent.dispatchSub(event, ...args);
 
       const response = JSON.stringify(args, null, 2);
 
@@ -92,7 +92,7 @@ export class SocketClient extends Socket {
 
   emit(event: string, ...args: any[]) {
     if (this.ignoreDipatchEvent === false) {
-      SocketEvent.dispatchPub(event, ...args);
+      SocketLogEvent.dispatchPub(event, ...args);
       AlertEvent.dispatch({
         variant: 'success',
         message: `send "${event}" with ${JSON.stringify(args, null, 2)}`,

@@ -2,7 +2,7 @@ import { v4 } from 'uuid';
 
 import { SocketPubLog, SocketSubLog } from '@/store';
 
-export class SocketEvent {
+export class SocketLogEvent {
   static initEventName = 'socket-init-event';
   static pubEventName = 'socket-pub-event';
   static subEventName = 'socket-sub-event';

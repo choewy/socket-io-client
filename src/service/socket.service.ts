@@ -1,7 +1,7 @@
 import { SettingStoreValue } from '@/store';
 
 import { SocketClient } from './socket.client';
-import { SocketEvent } from '@/event';
+import { SocketLogEvent } from '@/event';
 
 export class SocketService {
   client: SocketClient | null = null;
@@ -12,7 +12,7 @@ export class SocketService {
       this.client = null;
     }
 
-    SocketEvent.dispatchInit();
+    SocketLogEvent.dispatchInit();
 
     this.client = new SocketClient({
       url: setting.url,

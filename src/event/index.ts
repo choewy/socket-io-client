@@ -1,3 +1,3 @@
 export * from './alert.event';
-export * from './socket.event';
-export * from './connection-cache.event';
+export * from './socket-log.event';
+export * from './cache.event';
