@@ -6,6 +6,7 @@ import { tabProperties } from './tab';
 import { connectionStore } from './store';
 import { localStorageService } from './core';
 import { Alert } from './components';
+import { Helmet } from 'react-helmet-async';
 
 export const App: FunctionComponent = () => {
   const setConnection = connectionStore.useSetState();
@@ -37,6 +38,9 @@ export const App: FunctionComponent = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Socket Testing Client</title>
+      </Helmet>
       <Alert />
 
       <Box sx={{ width: '100%', position: 'sticky', top: 0, left: 0, background: '#eee', zIndex: 999 }}>

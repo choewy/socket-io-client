@@ -6,13 +6,16 @@ import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 
 import { App } from './app';
+import { HelmetProvider } from 'react-helmet-async';
 
 const element = document.getElementById('root');
 
 if (element) {
   ReactDOM.createRoot(element).render(
     <RecoilRoot>
-      <App />
+      <HelmetProvider>
+        <App />
+      </HelmetProvider>
     </RecoilRoot>,
   );
 }
