@@ -1,6 +1,6 @@
 import { Manager, Socket } from 'socket.io-client';
 
-import { SettingAuthValue } from '@/store';
+import { AlertVariant, SettingAuthValue } from '@/store';
 import { AlertEvent, SocketEvent } from '@/event';
 
 import { SocketClientOptions } from './types';
@@ -29,10 +29,28 @@ export class SocketClient extends Socket {
       }
 
       SocketEvent.dispatchSub(event, ...args);
-      AlertEvent.dispatch({
-        variant: 'info',
-        message: `${event} received with ${JSON.stringify(args)}`,
-      });
+
+      const response = JSON.stringify(args, null, 2);
+
+      let variant: AlertVariant = 'info';
+      let message = `received "${event}" with ${response}`;
+
+      if (['connect'].includes(event)) {
+        variant = 'success';
+        message = 'connected';
+      }
+
+      if (['exception', 'disconnect'].includes(event)) {
+        variant = 'warning';
+        message = `${event} with ${response}`;
+      }
+
+      if (['error', 'connect_error'].includes(event)) {
+        variant = 'error';
+        message = `${event} with ${response}`;
+      }
+
+      AlertEvent.dispatch({ variant, message });
     };
   }
 
@@ -42,7 +60,7 @@ export class SocketClient extends Socket {
     return super.disconnect();
   }
 
-  initAuth(authMaps: SettingAuthValue[]) {
+  setAuth(authMaps: SettingAuthValue[]) {
     const auth: Record<string, string> = {};
 
     for (const authMap of authMaps) {
@@ -56,7 +74,7 @@ export class SocketClient extends Socket {
     this.auth = auth;
   }
 
-  initListeners(events: string[]) {
+  setListeners(events: string[]) {
     this.on('connect', this.onEventHandler('connect'));
     this.on('connect_error', this.onEventHandler('connect_error'));
     this.on('disconnect', this.onEventHandler('disconnect'));
@@ -77,7 +95,7 @@ export class SocketClient extends Socket {
       SocketEvent.dispatchPub(event, ...args);
       AlertEvent.dispatch({
         variant: 'success',
-        message: `${event} sended with ${args}`,
+        message: `send "${event}" with ${JSON.stringify(args, null, 2)}`,
       });
     }
 

@@ -8,10 +8,11 @@ export class SocketService {
 
   createClient(setting: SettingStoreValue) {
     if (this.client instanceof SocketClient) {
-      SocketEvent.dispatchInit();
       this.client.disconnect();
       this.client = null;
     }
+
+    SocketEvent.dispatchInit();
 
     this.client = new SocketClient({
       url: setting.url,
@@ -19,8 +20,8 @@ export class SocketService {
       nsp: setting.nsp,
     });
 
-    this.client.initAuth(setting.authValues);
-    this.client.initListeners(setting.eventNames);
+    this.client.setAuth(setting.authValues);
+    this.client.setListeners(setting.eventNames);
     this.client.connect();
   }
 
