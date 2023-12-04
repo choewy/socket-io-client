@@ -16,7 +16,11 @@ export class LocalStorageService {
   }
 
   setValue(value: LocalStorageConnectionValue): void {
-    return localStorage.setItem(this.KEY, JSON.stringify([...this.getValues(), value]));
+    const values = this.getValues().filter((v) => JSON.stringify(v?.connection) !== JSON.stringify(value.connection));
+
+    values.push(value);
+
+    localStorage.setItem(this.KEY, JSON.stringify(values));
   }
 
   deleteValues(): void {
