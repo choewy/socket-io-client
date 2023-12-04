@@ -1,8 +1,10 @@
 import { v4 } from 'uuid';
 
-import { useCallback, useEffect } from 'react';
+import { ChangeEvent, useCallback, useEffect } from 'react';
 
-import { settingStore } from '@/store';
+import { SelectChangeEvent } from '@mui/material';
+
+import { SettingAuthValue, SettingStoreValue, SocketTransport, settingStore } from '@/store';
 import { cacheService } from '@/service';
 
 export class SettingHook {
@@ -42,6 +44,96 @@ export class SettingHook {
         id: v4(),
       });
     }, [setSetting]);
+  }
+
+  useChangeValueHandler(propertyKey: keyof Pick<SettingStoreValue, 'url' | 'nsp'>) {
+    const setSetting = settingStore.useSetState();
+
+    return useCallback(
+      (e: ChangeEvent<HTMLInputElement>) => {
+        setSetting((prev) => ({ ...prev, [propertyKey]: e.target.value }));
+      },
+      [propertyKey, setSetting],
+    );
+  }
+
+  useChangeTransportHandler() {
+    const setSetting = settingStore.useSetState();
+
+    return useCallback(
+      (e: SelectChangeEvent<SocketTransport>) => {
+        setSetting((prev) => ({ ...prev, transport: e.target.value as SocketTransport }));
+      },
+      [setSetting],
+    );
+  }
+
+  useAddAuthValueHandler() {
+    const setSetting = settingStore.useSetState();
+
+    return useCallback(() => {
+      setSetting((prev) => ({
+        ...prev,
+        authValues: [...prev.authValues, { key: '', value: '' }],
+      }));
+    }, [setSetting]);
+  }
+
+  useRemoveAuthValueHandler(index: number) {
+    const setSetting = settingStore.useSetState();
+
+    return useCallback(() => {
+      setSetting((prev) => ({
+        ...prev,
+        authValues: prev.authValues.filter((_, i) => i !== index),
+      }));
+    }, [index, setSetting]);
+  }
+
+  useAuthValueChangeHandler(index: number, propertyKey: keyof SettingAuthValue) {
+    const setSetting = settingStore.useSetState();
+
+    return useCallback(
+      (e: ChangeEvent<HTMLInputElement>) => {
+        setSetting((prev) => ({
+          ...prev,
+          authValues: prev.authValues.map((authValue, i) =>
+            i === index ? { ...authValue, [propertyKey]: e.target.value } : authValue,
+          ),
+        }));
+      },
+      [index, propertyKey, setSetting],
+    );
+  }
+
+  useAddEventNameHanler() {
+    const setSetting = settingStore.useSetState();
+
+    return useCallback(() => {
+      setSetting((prev) => ({ ...prev, eventNames: [...prev.eventNames, ''] }));
+    }, [setSetting]);
+  }
+
+  useRemoveEventNameHandler(index: number) {
+    const setSetting = settingStore.useSetState();
+
+    return useCallback(() => {
+      setSetting((prev) => ({ ...prev, eventNames: prev.eventNames.filter((_, i) => i !== index) }));
+    }, [index, setSetting]);
+  }
+
+  useEventNameChangeHandler(index: number) {
+    const setSetting = settingStore.useSetState();
+
+    return useCallback(
+      (e: ChangeEvent<HTMLInputElement>) => {
+        setSetting((prev) => ({
+          ...prev,
+          eventNames: prev.eventNames.map((eventName, i) => (i === index ? e.target.value : eventName)),
+        }));
+      },
+      [index, setSetting],
+    );
   }
 }
 

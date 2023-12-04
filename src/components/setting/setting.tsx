@@ -5,14 +5,14 @@ import { Box, Button, Tab, Tabs } from '@mui/material';
 import { settingStore } from '@/store';
 import { settingHook, socketHook, tabHook } from '@/hook';
 
-import { ConnectionDefault } from './connection-default';
-import { ConnectionAuthList } from './connection-auth-list';
-import { ConnectionListenerList } from './connection-listener-list';
+import { SettingConnection } from './setting-connection';
+import { SettingAuthValueList } from './setting-auth-value-list';
+import { SettingEventNameList } from './setting-event-name-list';
 
-export const Connection: FunctionComponent = () => {
+export const Setting: FunctionComponent = () => {
   const tabProps = tabHook.useProps();
 
-  const [setting, setSetting] = settingStore.useState();
+  const setting = settingStore.useValue();
 
   settingHook.useCache();
 
@@ -25,25 +25,24 @@ export const Connection: FunctionComponent = () => {
         maxWidth: 500,
       }}
     >
-      <Tabs value={tabProps.value} onChange={tabProps.onChange} centered>
-        <Tab label="DEFAULT" value={0} />
-        <Tab label="AUTH" value={1} />
-        <Tab label="LISTENER" value={2} />
-      </Tabs>
-
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Button onClick={settingHook.useResetHandler()}>Reset</Button>
         <Button onClick={socketHook.useConnectHandler(setting)}>Connect</Button>
       </Box>
 
+      <Tabs value={tabProps.value} onChange={tabProps.onChange} centered>
+        <Tab label="CONNECTION" value={0} />
+        <Tab label="AUTH" value={1} />
+        <Tab label="LISTENER" value={2} />
+      </Tabs>
       <Box sx={{ display: tabProps.value === 0 ? 'flex' : 'none' }}>
-        <ConnectionDefault url={setting.url} nsp={setting.nsp} transport={setting.transport} setSetting={setSetting} />
+        <SettingConnection url={setting.url} nsp={setting.nsp} transport={setting.transport} />
       </Box>
       <Box sx={{ display: tabProps.value === 1 ? 'flex' : 'none' }}>
-        <ConnectionAuthList values={setting.authValues} setSetting={setSetting} />
+        <SettingAuthValueList values={setting.authValues} />
       </Box>
       <Box sx={{ display: tabProps.value === 2 ? 'flex' : 'none' }}>
-        <ConnectionListenerList values={setting.eventNames} setSetting={setSetting} />
+        <SettingEventNameList values={setting.eventNames} />
       </Box>
     </Box>
   );

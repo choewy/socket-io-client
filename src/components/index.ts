@@ -1,4 +1,4 @@
 export * from './alert';
-export * from './connection';
+export * from './setting';
 export * from './monitor';
-export * from './connection-cache';
+export * from './cache';

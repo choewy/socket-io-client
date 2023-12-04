@@ -1,7 +1,7 @@
 import { v4 } from 'uuid';
 import { ReactElement } from 'react';
 
-import { Connection, Monitor, ConnectionCaches } from './components';
+import { Setting, Monitor, CacheList } from './components';
 
 const key = [v4(), 'tab'].join('_');
 
@@ -13,9 +13,9 @@ export type TabProperty = {
 
 export const tabProperties: TabProperty[] = [
   {
-    key: [key, 'CONNECTION'].join('_'),
-    title: 'CONNECTION',
-    component: <Connection />,
+    key: [key, 'SETTING'].join('_'),
+    title: 'SETTING',
+    component: <Setting />,
   },
   {
     key: [key, 'MONITOR'].join('_'),
@@ -23,8 +23,8 @@ export const tabProperties: TabProperty[] = [
     component: <Monitor />,
   },
   {
-    key: [key, 'CONNECTION CACHE'].join('_'),
-    title: 'CONNECTION CACHE',
-    component: <ConnectionCaches />,
+    key: [key, 'STORAGE'].join('_'),
+    title: 'STORAGE',
+    component: <CacheList />,
   },
 ];
