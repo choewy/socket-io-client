@@ -17,6 +17,7 @@ export class SocketClient extends Socket {
       new Manager(options.url, {
         transports: [options.transport],
         autoConnect: false,
+        withCredentials: true,
       }),
       options.nsp,
     );
